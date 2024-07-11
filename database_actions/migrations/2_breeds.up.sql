@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS breeds (
+    id INTEGER PRIMARY KEY NOT NULL DEFAULT 0,
+    species VARCHAR(255) NOT NULL DEFAULT '',
+    pet_size VARCHAR(255) NOT NULL DEFAULT '',
+    `name` VARCHAR(255) NOT NULL DEFAULT '',
+    `weight` INTEGER NOT NULL DEFAULT 0,
+    average_male_adult_weight INTEGER NOT NULL DEFAULT 0,
+    average_female_adult_weight INTEGER NOT NULL DEFAULT 0
+);

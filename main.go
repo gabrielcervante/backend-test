@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"net"
@@ -11,7 +12,10 @@ import (
 	charmLog "github.com/charmbracelet/log"
 	"github.com/gorilla/mux"
 	"github.com/japhy-tech/backend-test/database_actions"
-	"github.com/japhy-tech/backend-test/internal"
+	"github.com/japhy-tech/backend-test/internal/daemon"
+	database "github.com/japhy-tech/backend-test/internal/outbound/database/breeds"
+	"github.com/japhy-tech/backend-test/internal/usecase/breeds"
+	"github.com/japhy-tech/backend-test/internal/utils/converter"
 )
 
 const (
@@ -57,10 +61,16 @@ func main() {
 
 	logger.Info("Database connected")
 
-	app := internal.NewApp(logger)
+	breedsRepo := database.NewBreeds(db)
+
+	breedsCRUD := breeds.NewBreeds(breedsRepo)
+
+	converter.NewConverter(breedsRepo).ConvertCSVToSQL(context.Background(), "breeds.csv")
+
+	app := daemon.NewApp(logger, breedsCRUD)
 
 	r := mux.NewRouter()
-	app.RegisterRoutes(r.PathPrefix("/v1").Subrouter())
+	app.RegisterRoutes(r.PathPrefix("/v1").Subrouter(), logger)
 
 	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)

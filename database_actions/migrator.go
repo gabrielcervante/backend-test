@@ -39,6 +39,9 @@ func RunMigrate(migrationType string, steps int) (string, error) {
 		"mysql",
 		driver,
 	)
+
+	m.Force(1)
+
 	if err != nil {
 		return "", fmt.Errorf("error while instanciating new migration ("+migrationType+") with DB : %w", err)
 	}

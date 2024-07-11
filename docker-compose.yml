@@ -9,11 +9,10 @@ services:
       mysql-test:
         condition: service_healthy
     ports:
-      - 50010:5000
+      - 5000:5000
     volumes:
       - .:/app
   mysql-test:
-    platform: linux/arm64
     build: ./.docker-compose/mysql
     container_name: mysql-test
     environment:
