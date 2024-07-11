@@ -35,3 +35,22 @@ Have fun and good luck!
 5. Once the application is up and running, you can access the REST API at http://localhost:50010. Use tools like Postman or curl to interact with the API.
 6. `curl -v http://localhost:50010/health` to ensure your application is running.
 7. send us the link to your repository with the api.
+
+## Observations
+
+- All the endpoints are in /v1/
+- To use Get we need to provide a query parameter as: /v1/?name=nameofyourpet or /v1/?id=yourbreedsid or /v1/?species=yourpetspecies or /v1/?pet_size=yourpetsize or /v1/?weight?=yourpetweight
+- To use Delete we need to provide the breeds id as: /v1/?id=yourbreedsid
+- To use the Post and Put you will need to provide the same json which is: 
+{
+	"id": 700,
+	"species": "cat",
+	"pet_size": "medium",
+	"name": "Raj",
+	"weight": 20000,
+	"average_male_adult_weight": 12000,
+	"average_female_adult_weight": 12000
+}
+- When using Put just change what you need to do and send the other data unchanged or it will be with the go zero value in the database.
+
+- The last thing is the declaration of platform: linux/arm64 in the mysql-test service in the docker-compose file was removed because i don't use arm and it was crashing everything here so if you have arm just put it again.
