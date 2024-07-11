@@ -9,7 +9,7 @@ services:
       mysql-test:
         condition: service_healthy
     ports:
-      - 5000:5000
+      - 50010:5000
     volumes:
       - .:/app
   mysql-test:
